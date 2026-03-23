@@ -52,6 +52,10 @@ Projeyi yerel bilgisayarınızda çalıştırmak için:
 
 ---
 
+**Teknik Not**: QR Kod sistemi, yerel geliştirme ortamında (localhost) Base64 veri aktarımı prensibiyle çalışmaktadır. Canlı sunucu (Vercel/Netlify) kurulumunda tam performansla senkronizasyon sağlayacaktır.
+
+---
+
 ## 🎯 Proje Sahibi
 
 **Sude Sert**
