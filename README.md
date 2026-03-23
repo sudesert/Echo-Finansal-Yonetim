@@ -1,6 +1,6 @@
 # ECHO: Kişisel Finans Yönetimi & Sağlık Asistanı
 
-> **🔗 CANLI UYGULAMA LİNKİ:** [ECHO Dashboard'u Canlı Deneyimleyin](https://echo-finansal-yonetim-fgt96f7ay-sude.vercel.app)
+> **🔗 CANLI UYGULAMA LİNKİ:** [ECHO Dashboard'u Canlı Deneyimleyin](https://echo-finansal-yonetim.vercel.app)
 
 > **Bu çalışma, "Future Talent Program 201 - Yapay Zeka Bitirme Projesi" olarak hazırlanmıştır.**
 >
