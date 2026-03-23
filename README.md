@@ -1,5 +1,7 @@
 # ECHO: Kişisel Finans Yönetimi & Sağlık Asistanı
 
+> **🔗 CANLI UYGULAMA LİNKİ:** [ECHO Dashboard'u Canlı Deneyimleyin](https://echo-finansal-yonetim-fgt96f7ay-sude.vercel.app)
+
 > **Bu çalışma, "Future Talent Program 201 - Yapay Zeka Bitirme Projesi" olarak hazırlanmıştır.**
 >
 > *Aktüerya Bilimleri ve Yapay Zeka disiplinlerini birleştiren bu proje; bireysel finans yönetimini, veriye dayalı gelecek maliyeti projeksiyonları ve akıllı denetleme mekanizmalarıyla modern bir boyuta taşımayı hedeflemektedir.*
@@ -57,6 +59,15 @@ Projeyi yerel bilgisayarınızda çalıştırmak için:
 ---
 
 **Teknik Not**: QR Kod sistemi, yerel geliştirme ortamında (localhost) Base64 veri aktarımı prensibiyle çalışmaktadır. Canlı sunucu (Vercel/Netlify) kurulumunda tam performansla senkronizasyon sağlayacaktır.
+
+---
+
+### 🔐 Veri Güvenliği ve Gizliliği
+Bu uygulama, **"Privacy by Design"** (Tasarım Gereği Gizlilik) ilkesiyle geliştirilmiştir:
+* **Yerel Depolama:** Tüm finansal verileriniz tarayıcınızın `LocalStorage` alanında saklanır. 
+* **Sunucu Bağımsız:** Verileriniz hiçbir uzak sunucuya veya veritabanına aktarılmaz.
+* **Tam Kontrol:** Uygulamayı kapattığınızda verileriniz cihazınızda kalır, tarayıcı verilerini temizlediğinizde ise silinir.
+* **İzolasyon:** Her kullanıcı sadece kendi cihazındaki verileri görebilir; veriler ortak bir havuzda toplanmaz.
 
 ---
 
