@@ -1,5 +1,9 @@
 # ECHO: Kişisel Finans Yönetimi & Sağlık Asistanı
 
+> **Bu çalışma, "Future Talent Program 201 - Yapay Zeka Bitirme Projesi" olarak hazırlanmıştır.**
+>
+> *Aktüerya Bilimleri ve Yapay Zeka disiplinlerini birleştiren bu proje; bireysel finans yönetimini, veriye dayalı gelecek maliyeti projeksiyonları ve akıllı denetleme mekanizmalarıyla modern bir boyuta taşımayı hedeflemektedir.*
+
 **ECHO**, Aktüerya Bilimleri perspektifiyle geliştirilmiş, kullanıcıların gelir ve giderlerini anlık olarak takip edebildiği, kategori bazlı bütçe limitleri belirleyebildiği ve finansal sağlık skorunu izleyebildiği modern bir web uygulamasıdır. 
 
 Uygulamanın temel amacı, kullanıcıların harcama alışkanlıklarını Aktüeryal risk analizi metodolojisiyle (Harcamanın 10 Yıl Sonraki Gelecek Maliyeti) değerlendirerek, onlara "Finansal Koçluk" yapmaktır.
