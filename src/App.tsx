@@ -1,38 +1,45 @@
-import { useDataInit } from './hooks/use-data-init'
-import { IncomeCard } from './components/income-card'
-import { FinancialHealthCard } from './components/financial-health-card'
-import { TransactionInputCard } from './components/transaction-input-card'
-import { TransactionsTable } from './components/transactions-table'
-import { UserQrCard } from './components/user-qr-card'
-import { LimitSettingsPanel } from './components/limit-settings-panel'
+import { BrowserRouter, Link, Outlet, Route, Routes } from 'react-router-dom'
+import { Dashboard } from './components/Dashboard'
+import ViewData from './TransactionTable'
 
-function App() {
-  useDataInit()
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100">
-      <div className="mx-auto max-w-4xl px-4 py-6 md:px-6 md:py-8">
-        <header className="mb-8">
-          <h1 className="text-2xl font-bold tracking-tight text-slate-800">Echo</h1>
-          <p className="text-slate-600">Finansal Yönetim</p>
-        </header>
-        <div className="space-y-8">
-          <IncomeCard />
-          <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-start">
-            <FinancialHealthCard />
-            <UserQrCard />
-          </div>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-slate-800">Harcama Ekle</h2>
-              <LimitSettingsPanel />
-            </div>
-            <TransactionInputCard />
-          </div>
-          <TransactionsTable />
-        </div>
+const AppLayout = () => (
+  <div className="min-h-screen bg-background text-foreground">
+    <nav
+      className="border-b border-echo-brand/35 bg-card/80 print:hidden"
+      aria-label="Sayfa gezinmesi"
+    >
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-4 py-2 md:px-6">
+        <Link
+          to="/"
+          className="font-sans text-sm font-medium text-echo-brand transition hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-echo-brand/40"
+        >
+          Ana sayfa
+        </Link>
+        <span className="text-muted-foreground/40" aria-hidden>
+          |
+        </span>
+        <Link
+          to="/view-data"
+          className="font-sans text-sm font-medium text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-echo-brand/40"
+        >
+          Tablo
+        </Link>
       </div>
-    </div>
+    </nav>
+    <Outlet />
+  </div>
+)
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/view-data" element={<ViewData />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

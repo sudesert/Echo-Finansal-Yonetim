@@ -8,7 +8,7 @@ import {
   type ColumnDef,
   type SortingState,
 } from '@tanstack/react-table'
-import { useExpenseStore, selectCurrentUser } from '../store/expense-store'
+import { useExpenseStore, useExpenseUserSlice } from '../store/expense-store'
 import { getCategorySpending, getCategoryStatus } from '../utils/category-limits'
 import type { Transaction } from '../types'
 
@@ -30,7 +30,7 @@ const formatDate = (dateStr: string) => {
 }
 
 export const TransactionsTable = () => {
-  const { transactions, categoryLimits } = useExpenseStore(selectCurrentUser)
+  const { transactions, categoryLimits } = useExpenseUserSlice()
   const removeTransaction = useExpenseStore((s) => s.removeTransaction)
   const [sorting, setSorting] = useState<SortingState>([{ id: 'date', desc: true }])
   const [globalFilter, setGlobalFilter] = useState('')
@@ -52,7 +52,9 @@ export const TransactionsTable = () => {
       {
         accessorKey: 'date',
         header: 'Tarih',
-        cell: ({ getValue }) => formatDate(getValue() as string),
+        cell: ({ getValue }) => (
+          <span className="font-mono tabular-nums tracking-tight">{formatDate(getValue() as string)}</span>
+        ),
         sortingFn: (a, b) =>
           new Date(a.original.date).getTime() - new Date(b.original.date).getTime(),
         enableSorting: true,
@@ -93,7 +95,9 @@ export const TransactionsTable = () => {
           return (
             <span
               className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                t === 'income' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'
+                t === 'income'
+                  ? 'bg-emerald-100 text-emerald-800'
+                  : 'bg-red-100 text-red-800'
               }`}
             >
               {t === 'income' ? 'Gelir' : 'Harcama'}
@@ -110,9 +114,12 @@ export const TransactionsTable = () => {
           const isIncome = row.original.type === 'income'
           return (
             <span
-              className={`font-semibold ${isIncome ? 'text-emerald-600' : 'text-rose-600'}`}
+              className={`font-mono tabular-nums tracking-tight font-semibold ${
+                isIncome ? 'text-emerald-600' : 'text-red-600'
+              }`}
             >
-              {isIncome ? '+' : '−'}{formatCurrency(amount)}
+              {isIncome ? '+' : '−'}
+              {formatCurrency(amount)}
             </span>
           )
         },
@@ -171,9 +178,9 @@ export const TransactionsTable = () => {
 
   if (transactions.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/50 py-12 text-center">
-        <p className="text-sm text-slate-500">Henüz gelir veya harcama eklenmedi</p>
-        <p className="mt-1 text-xs text-slate-400">Yukarıdaki karttan ilk kaydınızı ekleyin</p>
+      <div className="rounded-xl border border-dashed border-echo-brand/50 bg-card/60 py-12 text-center">
+        <p className="text-sm text-muted-foreground">Henüz gelir veya harcama eklenmedi</p>
+        <p className="mt-1 text-xs text-muted-foreground/80">Yukarıdaki karttan ilk kaydınızı ekleyin</p>
       </div>
     )
   }
@@ -181,14 +188,14 @@ export const TransactionsTable = () => {
   return (
     <div className="space-y-4">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h3 className="text-lg font-semibold text-slate-800">Tüm İşlemler</h3>
+        <h3 className="text-lg font-semibold text-foreground">Tüm İşlemler</h3>
         <div className="flex gap-2">
           <input
             type="text"
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
             placeholder="Ara..."
-            className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-200"
+            className="rounded-lg border border-echo-brand/45 bg-card px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-echo-brand focus:outline-none focus:ring-2 focus:ring-echo-brand/30"
           />
           <select
             value={typeFilter || 'all'}
@@ -197,7 +204,7 @@ export const TransactionsTable = () => {
                 e.target.value === 'all' ? '' : (e.target.value as 'income' | 'expense')
               )
             }
-            className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-300 focus:outline-none"
+            className="rounded-lg border border-echo-brand/45 bg-card px-3 py-2 text-sm text-foreground focus:border-echo-brand focus:outline-none"
           >
             <option value="all">Tümü</option>
             <option value="income">Gelir</option>
@@ -205,22 +212,22 @@ export const TransactionsTable = () => {
           </select>
         </div>
       </div>
-      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-xl border border-echo-brand bg-card shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               {table.getHeaderGroups().map((hg) => (
-                <tr key={hg.id} className="border-b border-slate-200 bg-slate-50/80">
+                <tr key={hg.id} className="border-b border-echo-brand/35 bg-muted/40">
                   {hg.headers.map((h) => (
                     <th
                       key={h.id}
-                      className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500"
+                      className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground"
                     >
                       {h.column.getCanSort() ? (
                         <button
                           type="button"
                           onClick={h.column.getToggleSortingHandler()}
-                          className="flex items-center gap-1 hover:text-slate-700"
+                          className="flex items-center gap-1 hover:text-foreground"
                         >
                           {flexRender(h.column.columnDef.header, h.getContext())}
                           {{
@@ -236,11 +243,11 @@ export const TransactionsTable = () => {
                 </tr>
               ))}
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-echo-brand/25">
               {table.getRowModel().rows.map((row) => (
                 <tr
                   key={row.id}
-                  className="transition-colors hover:bg-slate-50/50"
+                  className="transition-colors hover:bg-muted/25"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id} className="px-4 py-3">

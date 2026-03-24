@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useExpenseStore, selectCurrentUser } from '../store/expense-store'
+import { useExpenseUserSlice } from '../store/expense-store'
 import { getCategorySpending, getCategoryStatus } from '../utils/category-limits'
 import { CATEGORIES } from '../constants/categories'
 
@@ -11,7 +11,7 @@ const formatCurrency = (value: number) =>
   }).format(value)
 
 export const CategoryProgressBars = () => {
-  const { transactions, categoryLimits } = useExpenseStore(selectCurrentUser)
+  const { transactions, categoryLimits } = useExpenseUserSlice()
 
   const categoriesWithLimits = useMemo(() => {
     return CATEGORIES.filter((cat) => (categoryLimits[cat] ?? 0) > 0)
@@ -21,7 +21,7 @@ export const CategoryProgressBars = () => {
 
   return (
     <div className="space-y-3">
-      <h3 className="text-sm font-semibold text-slate-700">Kategori Durumları</h3>
+      <h3 className="text-sm font-semibold text-foreground">Kategori Durumları</h3>
       <div className="space-y-2">
         {categoriesWithLimits.map((cat) => {
           const limit = categoryLimits[cat] ?? 0
@@ -31,27 +31,27 @@ export const CategoryProgressBars = () => {
           return (
             <div key={cat} className="flex flex-col gap-1">
               <div className="flex justify-between text-xs">
-                <span className="font-medium text-slate-600">{cat}</span>
+                <span className="font-medium text-muted-foreground">{cat}</span>
                 <span
-                  className={
+                  className={`tabular-nums tracking-tight ${
                     status === 'over'
-                      ? 'text-red-600'
+                      ? 'text-destructive'
                       : status === 'warning'
-                        ? 'text-amber-600'
-                        : 'text-slate-500'
-                  }
+                        ? 'text-foreground/80'
+                        : 'text-muted-foreground'
+                  }`}
                 >
                   {formatCurrency(spent)} / {formatCurrency(limit)}
                 </span>
               </div>
-              <div className="h-2 overflow-hidden rounded-full bg-slate-200">
+              <div className="h-2 overflow-hidden rounded-full bg-echo-brand/20">
                 <div
                   className={`h-full transition-all ${
                     status === 'over'
-                      ? 'bg-red-500'
+                      ? 'bg-destructive/60'
                       : status === 'warning'
-                        ? 'bg-amber-500'
-                        : 'bg-emerald-500'
+                        ? 'bg-foreground/50'
+                        : 'bg-foreground/35'
                   }`}
                   style={{ width: `${pct}%` }}
                 />

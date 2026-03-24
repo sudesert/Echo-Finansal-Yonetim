@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
-import { useExpenseStore, type EchoExportData } from '../store/expense-store'
+import type { EchoExportData } from '../store/expense-store'
+import { base64ToUtf8 } from '../utils/base64-utf8'
 
 const parseDataFromUrl = (): EchoExportData | null => {
   const params = new URLSearchParams(window.location.search)
   const dataParam = params.get('data')
   if (!dataParam) return null
   try {
-    const decoded = decodeURIComponent(escape(atob(dataParam)))
+    const decoded = base64ToUtf8(dataParam)
     const parsed = JSON.parse(decoded) as EchoExportData
     if (typeof parsed.monthlyIncome !== 'number' || !Array.isArray(parsed.transactions)) {
       return null
@@ -22,16 +23,18 @@ const parseDataFromUrl = (): EchoExportData | null => {
 }
 
 export const useDataInit = () => {
-  const loadFromData = useExpenseStore((s) => s.loadFromData)
-
   useEffect(() => {
-    const data = parseDataFromUrl()
-    if (data) {
-      loadFromData(data)
-      const url = new URL(window.location.href)
-      url.searchParams.delete('data')
-      const cleanUrl = url.pathname + (url.search || '')
-      window.history.replaceState({}, '', cleanUrl)
+    try {
+      if (typeof window === 'undefined') return
+      const data = parseDataFromUrl()
+      if (data) {
+        sessionStorage.setItem('echo_pending_import', JSON.stringify(data))
+        const url = new URL(window.location.href)
+        url.searchParams.delete('data')
+        window.history.replaceState({}, '', url.pathname + (url.search || ''))
+      }
+    } catch {
+      /* ignore malformed URL / storage */
     }
-  }, [loadFromData])
+  }, [])
 }
