@@ -1,62 +1,33 @@
-# ECHO: Kişisel Finans Yönetimi & Sağlık Asistanı
+# ECHO: Kisisel Finans Yonetimi ve Saglik Asistanı
 
-![Echo Uygulama Ekran Görüntüsü](https://i.ibb.co/F3K1JtF/echo-dashboard.jpg)
+> **CANLI UYGULAMA LINKI:** [ECHO Dashboard'u Canlı Deneyimleyin](https://echo-finansal-yonetim.vercel.app)
 
-**ECHO**, Aktüerya Bilimleri perspektifiyle geliştirilmiş, kullanıcıların gelir ve giderlerini anlık olarak takip edebildiği, kategori bazlı bütçe limitleri belirleyebildiği ve finansal sağlık skorunu izleyebildiği modern bir web uygulamasıdır. 
+> **Bu calısma, "Future Talent Program 201 - Yapay Zeka Bitirme Projesi" olarak hazırlanmıstır.**
 
-Uygulamanın temel amacı, kullanıcıların harcama alışkanlıklarını Aktüeryal risk analizi metodolojisiyle (Harcamanın 10 Yıl Sonraki Gelecek Maliyeti) değerlendirerek, onlara "Finansal Koçluk" yapmaktır.
+ECHO, Aktuerya Bilimleri perspektifiyle gelistirilmis; kullanıcıların gelir ve giderlerini anlık olarak takip edebildigi, finansal saglık skorunu izleyebildigi ve verilerini telefon numarasıyla senkronize ederek yonetebildigi modern bir web uygulamasıdır.
 
----
+## Temel Ozellikler
 
-## 🚀 Temel Özellikler
+### 1. Telefon Numarası ile Akıllı Erişim
+Kullanıcılar, telefon numaralarını girerek sistemdeki verilerine (LocalStorage) guvenli bir sekilde erisebilir. Veriler, kullanıcı etkilesimiyle ("Verileri Getir") dinamik olarak yuklenerek performans ve veri butunlugu saglanır.
 
-### 1. **Akıllı Veri Girişi (Q-Card Structure):**
-- Kullanıcı dostu, "Soru-Kartı" (Q-Card) yapısı ile harcamalar ve gelirler saniyeler içinde girilebilir.
-- **Anlık Seçim Butonu:** Her veri girişi, tek bir tıklama ile 'Gelir' (Income) veya 'Harcama' (Expense) olarak sınıflandırılabilir.
+### 2. Aktueryal Finansal Saglık Dashboard'u
+Kullanıcının gelir-gider dengesine gore anlık finansal saglık skoru hesaplanır. Her harcama kalemi icin yıllık %5 enflasyon oranı varsayımıyla 10 yıl sonraki tahmini maliyet (Aktueryal projeksiyon) sunulur.
 
-### 2. **Aktüeryal Finansal Sağlık Dashboard'u:**
-- **Finansal Sağlık Skoru:** Kullanıcının (Gelir - Gider) / Gelir oranına göre hesaplanan, anlık güncellenen bir skor.
-- **10 Yıl Sonraki Gelecek Maliyeti (Risk Analizi):** Her harcama kalemi için, yıllık %5 enflasyon oranı varsayımıyla (Aktüeryal projeksiyon) 10 yıl sonraki tahmini maliyeti hesaplanır.
+### 3. Akıllı Veri Girisi ve Analiz Tablosu
+Kullanıcı dostu kart yapısı ile veriler saniyeler icinde kaydedilir. Girilen tum veriler; tarih, acıklama ve kategori bazlı filtreleme ozelliklerine sahip TanStack Table bileseni ile listelenir.
 
-### 3. **Akıllı Bütçe Limitleri & Motivasyon Sistemi:**
-- Kullanıcılar 'Market', 'Kozmetik', 'Eğlence' gibi kritik kategoriler için aylık limitler belirleyebilir.
-- **Anlık Motivasyon Notu:** Belirlenen limit aşıldığında veya sınıra yaklaşıldığında, veri giriş kartının altında kullanıcıya "Dur ve Düşün!" diyen, vizyoner bir motivasyonel uyarı (Finansal Koç) notu belirir.
+### 4. QR Kod ile Paylasım ve Yedekleme
+Mevcut verileri bir linke (Base64) kodlayan ozel bir QR Kod yapısı bulunur. Kullanıcı bu kodu taratarak verilerini farklı cihazlar arasında tasıyabilir.
 
-### 4. **Profesyonel Veri Analiz Tablosu:**
-- Girilen TÜM veriler (Tarih, Açıklama, Kategori, Tür, Tutar) filtreleme ve sıralama özelliklerine sahip profesyonel bir **TanStack Table** bileşeni ile listelenir.
-- Gelirler (yeşil) ve Giderler (kırmızı) renk kodlarıyla ayırt edilir.
+## Kullanılan Teknolojiler
+- Frontend: React.js, TypeScript (Vite)
+- State Management: Zustand & LocalStorage Sync
+- Styling: Tailwind CSS, Lucide Icons
+- Library: TanStack Table, QR Code Library
 
-### 5. **Kullanıcıya Özel QR Kod ile Paylaşım/Yedekle:**
-- Uygulamanın sağ üst köşesinde, kullanıcının mevcut verilerini LocalStorage (telefon hafızası) üzerinden bir linke (Base64) kodlayan özel bir **QR Kod** bulunur.
-- Kullanıcı bu QR kodu taratarak verilerini başka bir cihazda görüntüleyebilir veya yedekleyebilir.
+## Veri Guvenligi ve Gizliligi
+Bu uygulama, "Privacy by Design" ilkesiyle gelistirilmistir. Tum finansal veriler yerel depolama (LocalStorage) alanında saklanır ve hicbir uzak sunucuya aktarılmaz.
 
----
-
-## 🛠️ Kullanılan Teknolojiler
-
-- **Frontend:** React.js, TypeScript
-- **State Management:** Zustand
-- **Table:** TanStack Table
-- **Styling:** Tailwind CSS, Lucid Icons
-- **Utility:** clsx, tailwind-merge, QR Code Library
-
----
-
-## 💻 Kurulum & Çalıştırma
-
-Projeyi yerel bilgisayarınızda çalıştırmak için:
-
-1.  **Depoyu Klonlayın:** `git clone https://github.com/sudesert/Echo-Finansal-Yonetim.git`
-2.  **Klasöre Girin:** `cd Echo-Finansal-Yonetim`
-3.  **Kütüphaneleri Yükleyin:** `npm install`
-4.  **Uygulamayı Başlatın:** `npm run dev`
-5.  Uygulamanız `http://localhost:5173` adresinde çalışacaktır.
-
----
-
-## 🎯 Proje Sahibi
-
-**Sude Sert**
-*Aktüerya Bilimleri Bölümü öğrencisi*
-
-*Bu proje, finansal okuryazarlığı artırmak ve bireysel bütçe yönetimini Aktüeryal projeksiyonlarla güçlendirmek amacıyla geliştirilmiştir.*
+## Proje Sahibi
+Sude Sert - Selcuk Universitesi, Aktuerya Bilimleri Bolumu
